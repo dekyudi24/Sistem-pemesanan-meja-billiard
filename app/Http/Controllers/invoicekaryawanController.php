@@ -3,16 +3,14 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\support\facades\DB;
-
+use App\Models\Pesanan;
+use App\Models\Pembayaran;
 
 class invoicekaryawanController extends Controller
 {
    public function invoice($id){
-        $pesan = DB::table('pesanan') ->where('id_pesanan', $id)->get();
-        $meja = DB::table('meja_billiard') 
-        ->orderBy('no_meja','asc')
-        ->get();
-        return view('/invoice', compact('pesan', 'meja'),['pesan'=>$pesan]);
+    $pesan = Pesanan::find($id);
+        return view('karyawan.invoice', compact('pesan'));
     }
    /*  public function invoice($id){
         $pesan = DB::table('pesanan') ->where('id_pesanan', $id)->get();

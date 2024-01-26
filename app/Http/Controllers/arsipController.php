@@ -3,16 +3,16 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\support\facades\DB;
-
+use App\Models\Pesanan;
 
 class arsipController extends Controller
 {
     public function arsip(Request $Request){
-        $pesan = DB::table('pesanan')  -> where('status_main','Selesai') ->get();
+        $arsip = Pesanan::where('status_main','Selesai')->paginate();
         $meja = DB::table('meja_billiard') 
-        ->orderBy('no_meja','asc')
+        ->orderBy('no_meja', 'desc')
         ->get();
-        return view('/admin/arsip', compact('pesan', 'meja'),['pesan'=>$pesan]);
+        return view('/admin/arsip', compact('arsip', 'meja'),['arsip'=>$arsip]);
     }
     
 }

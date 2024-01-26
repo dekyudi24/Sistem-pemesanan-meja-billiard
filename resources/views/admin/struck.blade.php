@@ -161,19 +161,16 @@
                 <td class="tableitem"><p class="itemtext"></p></td>
                 <td class="tableitem"><p class="itemtext">{{ $pesan-> waktu_mulai }}</p></td>
             </tr>
-
-            <tr class="service">
-                <td class="tableitem"><p class="itemtext">DP</p></td>
-                <td class="tableitem"><p class="itemtext"></p></td>
-                <td class="tableitem"><p class="itemtext">{{ $pesan-> dp }}</p></td>
-            </tr>
-
             <tr class="service">
               <td class="tableitem"><p class="itemtext">Durasi</p></td>
               <td class="tableitem"><p class="itemtext"></p></td>
               <td class="tableitem"><p class="itemtext">{{ $pesan-> durasi }} jam</p></td>
           </tr>
-
+          <tr class="service">
+            <td class="tableitem"><p class="itemtext">Total </p></td>
+            <td class="tableitem"><p class="itemtext"></p></td>
+            <td class="tableitem"><p class="itemtext">{{ $pesan-> total_biaya }}</p></td>
+        </tr>
             <tr class="service">
               <td class="tableitem"><p class="itemtext">Metode pembayaran</p></td>
               <td class="tableitem"><p class="itemtext"></p></td>
@@ -182,35 +179,20 @@
                 {{ optional($pesan->pembayaran)->metode_pembayaran}}
                 @endif
                 </p></td>
-          </tr>
-          <tr class="tabletitle">
-            <td class="tableitem"><p class="itemtext">Total </p></td>
-            <td class="tableitem"><p class="itemtext"></p></td>
-            <td class="tableitem"><p class="itemtext">{{ $pesan-> total_biaya }}</p></td>
-          </tr>
-          <tr class="tabletitle">
-            <td class="tableitem"><p class="itemtext">DP</p></td>
-            <td class="tableitem"><p class="itemtext"></p></td>
-            <td class="tableitem"><p class="itemtext"><?php 
-              $hasil = ( $pesan-> total_biaya)/2;
-              echo $hasil;
-              ?></h2></td></p></td>
-        </tr>
-      
-          <tr class="tabletitle">
-            <td class="tableitem"><p class="itemtext">Sisa yang Dibayar</p></td>
-            <td class="tableitem"><p class="itemtext"></p></td>
-            <td class="tableitem"><p class="itemtext"><b><?php 
-              $hasil = ( $pesan-> total_biaya)/2;
-              echo $hasil;
-              ?></b></h2></td></p></td>
-                        
- 
+                
+              </tr>
+                <div id="legalcopy">
+                  <tr class="service">
+                    <td class="tableitem"><p class="itemtext">Status Bayar</p></td>
+                    <td class="tableitem"><p class="itemtext"></p></td>
+                    <td class="tableitem"><p class="itemtext text-success">{{ $pesan-> status_main }}</p></td>
+                </tr>
+          
+
                         </table>
                     </div><!--End Table-->
  
-                    <div id="legalcopy">
-                        
+                    
                     </div>
                     <p> 
                       Jl. Pringgodani No.6e, Mrican, Caturtunggal, Kec. Depok, Kabupaten Sleman, Daerah Istimewa Yogyakarta 55281</br>

@@ -5,7 +5,7 @@
 <html lang="en" >
  
 <head>
-  @foreach ($pesan as $p )
+
   <meta charset="UTF-8">
   <title>Template Faktur Untuk Kasir HTML</title>
  
@@ -143,63 +143,62 @@
                           <tr class="service">
                             <td class="tableitem"><p class="itemtext">Id pesanan</p></td>
                             <td class="tableitem"><p class="itemtext"></p></td>
-                            <td class="tableitem"><p class="itemtext">{{ $p-> id_pesanan }} </p></td>
+                            <td class="tableitem"><p class="itemtext">{{ $pesan-> id_pesanan }} </p></td>
                         </tr>
 
                             <tr class="service">
                                 <td class="tableitem"><p class="itemtext">Nama</p></td>
                                 <td class="tableitem"><p class="itemtext"></p></td>
-                                <td class="tableitem"><p class="itemtext">{{ $p-> nama_pemesanan }}</p></td>
+                                <td class="tableitem"><p class="itemtext">{{ $pesan-> nama_pemesanan }}</p></td>
                             </tr>
  
                             <tr class="service">
                                 <td class="tableitem"><p class="itemtext">No meja</p></td>
                                 <td class="tableitem"><p class="itemtext"></p></td>
-                                <td class="tableitem"><p class="itemtext">{{ $p-> id_meja }}</p></td>
+                                <td class="tableitem"><p class="itemtext">{{ $pesan->meja-> no_meja }}</p></td>
                             </tr>
  
                             <tr class="service">
                                 <td class="tableitem"><p class="itemtext">Jam mulai</p></td>
                                 <td class="tableitem"><p class="itemtext"></p></td>
-                                <td class="tableitem"><p class="itemtext">{{ $p-> waktu_mulai }}</p></td>
+                                <td class="tableitem"><p class="itemtext">{{ $pesan-> waktu_mulai }}</p></td>
                             </tr>
  
                             <tr class="service">
                                 <td class="tableitem"><p class="itemtext">DP</p></td>
                                 <td class="tableitem"><p class="itemtext"></p></td>
-                                <td class="tableitem"><p class="itemtext">{{ $p-> dp }}</p></td>
+                                <td class="tableitem"><p class="itemtext">{{ $pesan-> dp }}</p></td>
                             </tr>
 
                             <tr class="service">
                               <td class="tableitem"><p class="itemtext">Durasi</p></td>
                               <td class="tableitem"><p class="itemtext"></p></td>
-                              <td class="tableitem"><p class="itemtext">{{ $p-> durasi }} jam</p></td>
+                              <td class="tableitem"><p class="itemtext">{{ $pesan-> durasi }} jam</p></td>
                           </tr>
 
                             <tr class="service">
                               <td class="tableitem"><p class="itemtext">Metode pembayaran</p></td>
                               <td class="tableitem"><p class="itemtext"></p></td>
-                              <td class="tableitem"><p class="itemtext">{{ $p-> metode_pembayaran }}</p></td>
+                              <td class="tableitem"><p class="itemtext">{{ $pesan-> metode_pembayaran }}</p></td>
                           </tr>
                           <tr class="tabletitle">
                             <td class="tableitem"><p class="itemtext">Total </p></td>
                             <td class="tableitem"><p class="itemtext"></p></td>
-                            <td class="tableitem"><p class="itemtext">{{ $p-> total_biaya }}</p></td>
+                            <td class="tableitem"><p class="itemtext">{{ $pesan->total_biaya }}</p></td>
                           </tr>
                           <tr class="tabletitle">
                             <td class="tableitem"><p class="itemtext">DP</p></td>
                             <td class="tableitem"><p class="itemtext"></p></td>
-                            <td class="tableitem"><p class="itemtext"><?php 
-                              $hasil = ( $p-> total_biaya)/2;
-                              echo $hasil;
-                              ?></h2></td></p></td>
+                            <td class="tableitem">
+                              <p class="itemtext">{{ "Rp " . number_format(($pesan->total_biaya) / 2, 0, ',', '.') }}</p>
+                          </td></p></td>
                         </tr>
                       
                           <tr class="tabletitle">
                             <td class="tableitem"><p class="itemtext">Sisa yang Dibayar</p></td>
                             <td class="tableitem"><p class="itemtext"></p></td>
                             <td class="tableitem"><p class="itemtext"><b><?php 
-                              $hasil = ( $p-> total_biaya)/2;
+                              $hasil = ( $pesan->total_biaya)/2;
                               echo $hasil;
                               ?></b></h2></td></p></td>
                         
@@ -216,7 +215,7 @@
                     </p>
                 </div><!--End InvoiceBot-->
   </div><!--End Invoice-->
-  @endforeach
+
 </body>
  
 </html>
@@ -226,4 +225,4 @@
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-<script src="https://kit.fontawesome.com/206142bfe3.js" crossorigin="anonymous"></script>
+<script src="https://kit.fontawesome.com/206142bfe3.js" crossorigin="anonymous"></script> 

@@ -16,12 +16,13 @@
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-        <ul></ul> <ul></ul> <ul></ul> <ul></ul> <ul></ul> <ul></ul> <ul></ul> <ul></ul> <ul></ul> <ul></ul> <ul></ul> <ul></ul>
+         <ul></ul> <ul></ul> <ul></ul> <ul></ul> <ul></ul> <ul></ul> <ul></ul> <ul></ul> <ul></ul> <ul></ul>
         <div class="navbar-nav">
-          <a class="nav-link " aria-current="page" href="/admin/dashlantai1">Home</a>
-          <a class="nav-link active" href="/admin/pemesanan1">Pemesanan</a>
+          <a class="nav-link  " aria-current="page" href="/admin/dashlantai1">Home</a>
+          <a class="nav-link active " href="/admin/pemesanan1">Pemesanan</a>
           <a class="nav-link " href="/admin/arsip">Arsip</a>
-          <a class="nav-link" href="/admin/">Informasi</a>
+          <a class="nav-link" href="/admin/informasi">Informasi</a>
+          <a class="nav-link" href="/admin/laporan">Laporan</a>
           <a class="nav-link " href="/admin/pengguna">Pengguna</a>
         </div>
       </div>
@@ -41,12 +42,21 @@
       <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
         Tambah (+)
       </button>
-      <form class="d-flex">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success" type="submit">Search</button>
+      <form action="/admin/cari" method="GET">
+        <input type="text" name="cari" placeholder="Cari pesanan..." value="{{old('cari')}}"> 
+        <input type="submit" value="CARI">
       </form>
     </div>
   </nav>
+  @if ($errors->any())
+        <div class="alert alert-danger">
+          <ul>
+            @foreach ($errors->all() as $error)
+            <li>{{ $error }}</li>
+            @endforeach
+          </ul>
+        </div>
+        @endif
   <!-- Modal Tambah-->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
@@ -61,6 +71,7 @@
           <div class="mb-3">
             <label class="form-label">Nama Pemesan</label>
             <input type="text" class="form-control" name="nama_pemesanan" required >
+            <input type="hidden" class="form-control" name="tanggal_pesanan" value="<?php echo date('y-m-d'); ?>" >
           </div>
           <div class="mb-3">
             <label for="disabledSelect" class="form-label">Pilih Meja</label>
@@ -70,13 +81,30 @@
               @endforeach
             </select>
           </div><br>
-          
-          <label class="form-label">pilih jam mulai</label><br>
-          <input type="time" class="form-control" name="waktu_mulai" onInput="calculateTotal();" required >
-          <label class="form-label">pilih jam selesai</label><br>
-          <input type="time" class="form-control" name="waktu_selesai" onInput="calculateTotal();" required >
+          <div class="mb-3">
+            <label for="disabledSelect" class="form-label">Pilih jam mulai</label>
+            <select id="disabledSelect" class="form-select" name="waktu_mulai" required>
+              <option>11:00</option>
+              <option>12:00</option>
+              <option>13:00</option>
+              <option>14:00</option>
+              <option>15:00</option>
+              <option>16:00</option>
+              <option>17:00</option>
+              <option>18:00</option>
+              <option>19:00</option>
+              <option>20:00</option>
+              <option>21:00</option>
+              <option>22:00</option>
+              <option>23:00</option>
+              <option>00:00</option>
+              <option>01:00</option>
+              <option>02:00</option>
+            </select>
+          </div>
+          <label class="form-label">Durasi (jam) </label>
+              <input type="number" class="form-control" name="durasi" onFocus="startCalc();" onBlur="stopCalc();" required > 
 
-          <input type="hidden" class="form-control" name="tanggal_pesanan" value="<?php echo date("Y-m-d"); ?>"  >
           </div>
             <div class="mb-3">
               <label class="form-label">Total Biaya</label>
@@ -101,7 +129,9 @@
             <th scope="col">Jam mulai</th>
             <th scope="col">Status</th>
             <th scope="col">Status main</th>
+            <th scope="col">Sisa bayar</th>
             <th width="30%" scope="col">Keterangan</th>
+            
             <th scope="col"><center>Aksi</center></th>
           </tr>
         </thead>
@@ -114,7 +144,7 @@
             <th scope="row">{{ ++ $no}}</th>
             <td>{{ $p->id_pesanan }}</td>
             <td>   
-              @if($p-> waktu_selesai == null)
+              @if($p-> waktu_selesai != null)
               {{ $p->durasi }} jam
               @else
               <?php
@@ -145,6 +175,12 @@
                 @elseif ($p ->status_main == "Booking")
                 <a  class=" d-grid gap-4 col-10 mx-auto text-warning" style="text-decoration:none"><b>{{ $p ->status_main }}</b></a>
                 @endif
+                
+            <td class="tableitem"><p class="itemtext"><b><?php 
+              $sisa = ($p->total_biaya)/2;
+              $hasil = number_format($sisa, 2, ',', '.');
+              echo $hasil; 
+              ?></td>
             </td>
             <td>{{ $p->keterangan }}</td>
             <td><center>
@@ -152,7 +188,6 @@
               <a class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#lihat{{ $p->id_pesanan }}" href=""><i class="fa fa-eye"></i> lihat</a>
               <a class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#edit{{ $p->id_pesanan }}" href=""><i class="fa fa-pencil"></i> edit</a>
             </center>
-            
             </td>
           </tr>
         </tbody>
@@ -224,24 +259,27 @@
                 </div>
               </div>
               @endif
-       
-        
-        <div class="mb-3 row">
-          <label for="staticEmail" class="col-sm-2 col-form-label">Total biaya</label>
-          <div class="col-sm-10">
-            <input type="text" readonly class="form-control-plaintext" id="staticEmail" value="{{ $p-> total_biaya }}">
-          </div>
-        </div>
+              <div class="mb-3 row">
+                <label for="staticEmail" class="col-sm-2 col-form-label">Total biaya</label>
+                <div class="col-sm-10">
+                    <?php
+                        $formattedTotalBiaya = "Rp " . number_format($p->total_biaya, 0, ',', '.');
+                    ?>
+                    <input type="text" readonly class="form-control-plaintext" id="staticEmail" value="{{ $formattedTotalBiaya }}">
+                </div>
+            </div>
         <div class="mb-3 row">
           <label for="staticEmail" class="col-sm-2 col-form-label">Bukti transfer</label>
           <div class="col-sm-10">
-            <img src="/img/{{ $p->bukti_transfer }}" height="100%" width="100%" alt="" type="text" readonly class="form-control-plaintext" id="staticEmail">
+            @if (optional($p->pembayaran)->bukti_transfer !="")
+              <img src="/img/{{ optional($p->pembayaran)->bukti_transfer }}" height="70%" width="50%" alt="" type="text" readonly class="form-control-plaintext" id="staticEmail">
+            @endif
           </div>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
           @if ($p-> status=="Valid")
-              <a class="btn btn-primary" href="/invoice/{{ $p->id_pesanan }}"><i class="fa fa-eye"></i> cetak</a>
+              <a class="btn btn-primary" href="/invoiceadm/{{ $p->id_pesanan }}"><i class="fa fa-eye"></i> cetak</a>
               @endif
         </div>
        
@@ -264,31 +302,35 @@
           <input type="hidden" class="form-control" value="{{ $p-> id_pesanan }}" name="id_pesanan">
           <div class="mb-3">
             <label class="form-label">Nama Pemesan</label>
-            <input type="text" class="form-control"  value="{{ $p-> nama_pemesanan }}" name="nama_pemesanan" required >
+            <input disabled type="text" class="form-control"  value="{{ $p->nama_pemesanan }}" name="nama_pemesanan" required >
           </div>
-          <div class="mb-3">
+            <div class="mb-3">
             <label for="disabledSelect" class="form-label">Pilih Meja</label>
             <select id="disabledSelect" class="form-select" name="id_meja">
               @foreach ($meja as $m)
-              <option value="{{ $m-> id_meja }}">Meja {{ $m-> no_meja }}</option>
+              @if( $m->id_meja === $p->id_meja)
+              <option disabled type="text" value="{{ $m-> id_meja }}" {{ $m->id_meja === $p->id_meja ? 'selected' : '' }}>Meja {{ $m->no_meja }}</option>
+              @endif
               @endforeach
             </select>
           </div>
-            <div class="mb-3">
-              <label class="form-label">Total Biaya</label>
-              <input disabled type="text" class="form-control" value="{{ $p-> total_biaya }}" name="total_biaya" required >
-            </div>
+          <div class="mb-3">
+            <label class="form-label">Total Biaya</label>
+            <?php
+                $formattedTotalBiaya = "Rp " . number_format($p->total_biaya, 0, ',', '.');
+            ?>
+            <input disabled type="text" class="form-control" value="{{ $formattedTotalBiaya }}" name="total_biaya" required>
+        </div>
             <div class="mb-3">
               <label for="disabledSelect" class="form-label">Status</label>
                 <select id="disabledSelect" class="form-select" name="status">
-                <option value="Proses">Proses</option>
-                <option value="Invalid">Invalid</option>
                 <option value="Valid">Valid</option>
+                <option value="Invalid">Invalid</option>
               </select>
             </div>
             <div class="mb-3">
-              <label for="disabledSelect" class="form-label">Status main</label>
-                <select id="disabledSelect" class="form-select" name="status_main">
+              <label for="statusMainSelect" class="form-label">Status main</label>
+                <select id="statusMainSelect" class="form-select" name="status_main">
                 <option value="Booking">Booking</option>
                 <option value="Main">Main</option>
                 <option value="Selesai">Selesai</option>
@@ -301,9 +343,8 @@
         
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="submit" class="btn btn-primary" value="simpan">Save changes</button>
-      </div>
+        <button type="submit" class="btn btn-primary" value="simpan"><i class="fas fa-save"></i> Save changes</button>
+        <a class="btn btn-primary" href="/admin/struck/{{ $p->id_pesanan }}"><i class="fa fa-eye"></i> cetak</a>
     </form>
     </div>
   </div>
@@ -313,20 +354,16 @@
 
 </body>
 <script>
-  function calculateTotal() {
-      var waktuAwal = document.autoSumForm.waktu_mulai.value;
-      var waktuAkhir = document.autoSumForm.waktu_selesai.value;
 
-      if (waktuAwal && waktuAkhir) {
-          var selisihWaktu = calculateTimeDifference(waktuAwal, waktuAkhir);
-          // Misalnya, kita asumsikan biaya per menit adalah 10.
-          var biayaPerMenit = 500;
-          var totalBayar = selisihWaktu * biayaPerMenit;
-          document.autoSumForm.total_biaya.value = totalBayar;
-      } else {
-          document.autoSumForm.total_biaya.value = "0";
-      }
-  }
+  function startCalc(){
+    interval = setInterval("calc()",1);}
+  
+  function calc(){
+    one = document.autoSumForm.durasi.value;
+    document.autoSumForm.total_biaya.value = (one * 35000 );}
+  
+  function stopCalc(){
+    clearInterval(interval);}
 
   function calculateTimeDifference(time1, time2) {
       var parts1 = time1.split(":");
@@ -344,11 +381,11 @@
       return totalMinutes2 - totalMinutes1;
   }
 </script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 <!-- JS files: jQuery pertama, lalu Popper.js, selanjutnya Bootstrap JS, lalu Font Awesome JS-->
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 <script src="https://kit.fontawesome.com/206142bfe3.js" crossorigin="anonymous"></script>
-
 </html>

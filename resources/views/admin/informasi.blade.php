@@ -16,11 +16,14 @@
             <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-            <ul></ul> <ul></ul> <ul></ul> <ul></ul> <ul></ul> <ul></ul> <ul></ul> <ul></ul> <ul></ul> <ul></ul> <ul></ul> <ul></ul>
+             <ul></ul> <ul></ul> <ul></ul> <ul></ul> <ul></ul> <ul></ul> <ul></ul> <ul></ul> <ul></ul> <ul></ul>
             <div class="navbar-nav">
-              <a class="nav-link " aria-current="page" href="/dashboard">Home</a>
-              <a class="nav-link " href="/pemesanan">Pemesanan</a>
-              <a class="nav-link active" href="/informasi">Informasi</a>
+              <a class="nav-link " aria-current="page" href="/admin/dashlantai1">Home</a>
+              <a class="nav-link " href="/admin/pemesanan1">Pemesanan</a>
+              <a class="nav-link " href="/admin/arsip">Arsip</a>
+              <a class="nav-link active" href="/admin/informasi">Informasi</a>
+              <a class="nav-link" href="/admin/laporan">Laporan</a>
+              <a class="nav-link " href="/admin/pengguna">Pengguna</a>
             </div>
           </div>
           <div class="dropdown">
@@ -33,7 +36,6 @@
             </ul>
           </div>
         </div>
-       
       </nav>
       <div class="card text-center">
         <div class="fw-bold">
@@ -62,9 +64,6 @@
             </div>
           </div>
         </div>
-        <!--p class="fs-1">.fs-1 text</p <p class="fw-bold">Bold text.</p> <h2>h2. Bootstrap heading</h2> <p class="h1">h1. Bootstrap heading</p>-->
-
-
 </body>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 

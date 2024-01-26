@@ -16,13 +16,14 @@
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-        <ul></ul> <ul></ul> <ul></ul> <ul></ul> <ul></ul> <ul></ul> <ul></ul> <ul></ul> <ul></ul> <ul></ul> <ul></ul> <ul></ul>
+         <ul></ul> <ul></ul> <ul></ul> <ul></ul> <ul></ul> <ul></ul> <ul></ul> <ul></ul> <ul></ul> <ul></ul>
         <div class="navbar-nav">
           <a class="nav-link active " aria-current="page" href="/admin/dashlantai1">Home</a>
-              <a class="nav-link " href="/admin/pemesanan1">Pemesanan</a>
-              <a class="nav-link " href="/admin/arsip">Arsip</a>
-              <a class="nav-link" href="/admin/">Informasi</a>
-              <a class="nav-link " href="/admin/pengguna">Pengguna</a>
+          <a class="nav-link " href="/admin/pemesanan1">Pemesanan</a>
+          <a class="nav-link " href="/admin/arsip">Arsip</a>
+          <a class="nav-link" href="/admin/informasi">Informasi</a>
+          <a class="nav-link" href="/admin/laporan">Laporan</a>
+          <a class="nav-link " href="/admin/pengguna">Pengguna</a>
         </div>
       </div>
       <div class="dropdown">
@@ -95,7 +96,6 @@
         <thead>
           <tr>
             <th scope="col">No meja</th>
-            <th scope="col">Lantai</th>
             <th scope="col">Status</th>
             <th scope="col"><center>Aksi</center></th>
           </tr>
@@ -105,7 +105,6 @@
           @foreach ($meja as $m )
           <tr>
             <td>{{ $m->no_meja }}</td>
-            <td>lantai {{ $m->lantai }}</td>
             <td>{{ $m->status }}</td>
             <td><center>
               <a class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#hapus{{ $m->no_meja }}" href=""><i class="fa fa-trash"></i> hapus</a>

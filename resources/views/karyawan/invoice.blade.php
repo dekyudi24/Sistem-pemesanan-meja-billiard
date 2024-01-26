@@ -5,9 +5,8 @@
 <html lang="en" >
  
 <head>
-  @foreach ($pesan as $p )
   <meta charset="UTF-8">
-  <title>Template Faktur Untuk Kasir HTML</title>
+  <title></title>
  
   <style>
 @media print {
@@ -143,54 +142,58 @@
                           <tr class="service">
                             <td class="tableitem"><p class="itemtext">Id pesanan</p></td>
                             <td class="tableitem"><p class="itemtext"></p></td>
-                            <td class="tableitem"><p class="itemtext">{{ $p-> id_pesanan }} </p></td>
+                            <td class="tableitem"><p class="itemtext">{{ $pesan-> id_pesanan }} </p></td>
                         </tr>
 
                             <tr class="service">
                                 <td class="tableitem"><p class="itemtext">Nama</p></td>
                                 <td class="tableitem"><p class="itemtext"></p></td>
-                                <td class="tableitem"><p class="itemtext">{{ $p-> nama_pemesanan }}</p></td>
+                                <td class="tableitem"><p class="itemtext">{{ $pesan-> nama_pemesanan }}</p></td>
                             </tr>
  
                             <tr class="service">
                                 <td class="tableitem"><p class="itemtext">No meja</p></td>
                                 <td class="tableitem"><p class="itemtext"></p></td>
-                                <td class="tableitem"><p class="itemtext">{{ $p-> id_meja }}</p></td>
+                                <td class="tableitem"><p class="itemtext">{{ $pesan-> id_meja }}</p></td>
                             </tr>
  
                             <tr class="service">
                                 <td class="tableitem"><p class="itemtext">Jam mulai</p></td>
                                 <td class="tableitem"><p class="itemtext"></p></td>
-                                <td class="tableitem"><p class="itemtext">{{ $p-> waktu_mulai }}</p></td>
+                                <td class="tableitem"><p class="itemtext">{{ $pesan-> waktu_mulai }}</p></td>
                             </tr>
  
                             <tr class="service">
                                 <td class="tableitem"><p class="itemtext">DP</p></td>
                                 <td class="tableitem"><p class="itemtext"></p></td>
-                                <td class="tableitem"><p class="itemtext">{{ $p-> dp }}</p></td>
+                                <td class="tableitem"><p class="itemtext">{{ $pesan-> dp }}</p></td>
                             </tr>
 
                             <tr class="service">
                               <td class="tableitem"><p class="itemtext">Durasi</p></td>
                               <td class="tableitem"><p class="itemtext"></p></td>
-                              <td class="tableitem"><p class="itemtext">{{ $p-> durasi }} jam</p></td>
+                              <td class="tableitem"><p class="itemtext">{{ $pesan-> durasi }} jam</p></td>
                           </tr>
 
                             <tr class="service">
                               <td class="tableitem"><p class="itemtext">Metode pembayaran</p></td>
                               <td class="tableitem"><p class="itemtext"></p></td>
-                              <td class="tableitem"><p class="itemtext">{{ $p-> metode_pembayaran }}</p></td>
+                              <td class="tableitem"><p class="itemtext">
+                                @if (optional($pesan->pembayaran)->metode_pembayaran !="")
+                                {{ optional($pesan->pembayaran)->metode_pembayaran}}
+                                @endif
+                              </p></td>
                           </tr>
                           <tr class="tabletitle">
                             <td class="tableitem"><p class="itemtext">Total </p></td>
                             <td class="tableitem"><p class="itemtext"></p></td>
-                            <td class="tableitem"><p class="itemtext">{{ $p-> total_biaya }}</p></td>
+                            <td class="tableitem"><p class="itemtext">{{ $pesan-> total_biaya }}</p></td>
                           </tr>
                           <tr class="tabletitle">
                             <td class="tableitem"><p class="itemtext">DP</p></td>
                             <td class="tableitem"><p class="itemtext"></p></td>
                             <td class="tableitem"><p class="itemtext"><?php 
-                              $hasil = ( $p-> total_biaya)/2;
+                              $hasil = ( $pesan-> total_biaya)/2;
                               echo $hasil;
                               ?></h2></td></p></td>
                         </tr>
@@ -199,7 +202,7 @@
                             <td class="tableitem"><p class="itemtext">Sisa yang Dibayar</p></td>
                             <td class="tableitem"><p class="itemtext"></p></td>
                             <td class="tableitem"><p class="itemtext"><b><?php 
-                              $hasil = ( $p-> total_biaya)/2;
+                              $hasil = ( $pesan-> total_biaya)/2;
                               echo $hasil;
                               ?></b></h2></td></p></td>
                         
@@ -216,7 +219,6 @@
                     </p>
                 </div><!--End InvoiceBot-->
   </div><!--End Invoice-->
-  @endforeach
 </body>
  
 </html>

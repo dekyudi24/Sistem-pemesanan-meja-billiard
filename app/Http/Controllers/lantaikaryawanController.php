@@ -11,7 +11,7 @@ class lantaikaryawanController extends Controller
         $meja = DB::table('meja_billiard')
         ->orderBy('no_meja','desc')
         ->get();
-        return view('/karyawan/dashlantai1',['meja'=>$meja]);
+        return view('karyawan.dashlantai1',['meja'=>$meja]);
 
     
     }

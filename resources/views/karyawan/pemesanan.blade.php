@@ -20,7 +20,7 @@
         <div class="navbar-nav">
           <a class="nav-link " aria-current="page" href="/karyawan/dashlantai1">Home</a>
           <a class="nav-link active" href="/karyawan/pemesanan">Pemesanan</a>
-          <a class="nav-link" href="/admin/">Informasi</a>
+          <a class="nav-link" href="/karyawan/informasi">Informasi</a>
         </div>
       </div>
       <div class="dropdown">
@@ -39,12 +39,21 @@
       <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
         Tambah (+)
       </button>
-      <form class="d-flex">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success" type="submit">Search</button>
+      <form action="/pesanan/cari" method="GET">
+        <input type="text" name="cari" placeholder="Cari pesanan..." value="{{old('cari')}}"> 
+        <input type="submit" value="CARI">
       </form>
     </div>
   </nav>
+  @if ($errors->any())
+        <div class="alert alert-danger">
+          <ul>
+            @foreach ($errors->all() as $error)
+            <li>{{ $error }}</li>
+            @endforeach
+          </ul>
+        </div>
+        @endif
   <!-- Modal Tambah-->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
@@ -68,19 +77,39 @@
               @endforeach
             </select>
           </div><br>
-          
-          <label class="form-label">pilih jam mulai</label><br>
-          <input type="time" class="form-control" name="waktu_mulai" onInput="calculateTotal();" required >
-          <label class="form-label">pilih jam selesai</label><br>
-          <input type="time" class="form-control" name="waktu_selesai" onInput="calculateTotal();" required >
-          
-          <input type="hidden" class="form-control" name="tanggal_pesanan" value="<?php echo date("Y-m-d"); ?>"  >
+          <div class="mb-3">
+            <label for="disabledSelect" class="form-label">Pilih jam mulai</label>
+            <select id="disabledSelect" class="form-select" name="waktu_mulai" required>
+              <option>11:00</option>
+              <option>12:00</option>
+              <option>13:00</option>
+              <option>14:00</option>
+              <option>15:00</option>
+              <option>16:00</option>
+              <option>17:00</option>
+              <option>18:00</option>
+              <option>19:00</option>
+              <option>20:00</option>
+              <option>21:00</option>
+              <option>22:00</option>
+              <option>23:00</option>
+              <option>00:00</option>
+              <option>01:00</option>
+              <option>02:00</option>
+              <option>03:00</option>
+            </select>
           </div>
-          
-            <div class="mb-3">
-              <label class="form-label">Total Biaya</label>
-              <input type="text" class="form-control" name="total_biaya" value="0" readonly >
-            </div>
+          <label class="form-label">Durasi (jam) </label>
+              <input type="number" class="form-control" name="durasi" onFocus="startCalc();" onBlur="stopCalc();" required > 
+
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Total Biaya</label>
+            <?php
+                $formattedTotalBiaya = "Rp " . number_format(0, 0, ',', '.');
+            ?>
+            <input type="text" class="form-control" name="total_biaya" value="<?= $formattedTotalBiaya ?>" readonly>
+        </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
           <button type="submit" class="btn btn-primary" value="simpan">Simpan </button>
@@ -100,6 +129,8 @@
             <th scope="col">Jam mulai</th>
             <th scope="col">Status</th>
             <th scope="col">Status main</th>
+            <th scope="col">Sisa Bayar</th>
+            <th scope="col">Status pelanggan</th>
             <th width="30%" scope="col">Keterangan</th>
             <th scope="col"><center>Aksi</center></th>
           </tr>
@@ -126,13 +157,13 @@
             <td>{{ $p->waktu_mulai }}</td>
             <td>
             @if ($p ->status == "Valid")
-                <a class=" d-grid gap-4 col-10 mx-auto text-success "style="text-decoration:none" > <b>{{ $p ->status }}</b></a>
-                @elseif ($p ->status == "Invalid")                
-                <a  class=" d-grid gap-4 col-10 mx-auto text-danger" style="text-decoration:none"><b>{{ $p ->status }}</b></a>
-                @elseif ($p ->status == "Proses")
-                <a  class=" d-grid gap-4 col-10 mx-auto text-warning" style="text-decoration:none"><b>{{ $p ->status }}</b></a>
-                @endif
-              </td>
+              <a class=" d-grid gap-4 col-10 mx-auto text-success "style="text-decoration:none" > <b>{{ $p ->status }}</b></a>
+              @elseif ($p ->status == "Invalid")                
+              <a  class=" d-grid gap-4 col-10 mx-auto text-danger" style="text-decoration:none"><b>{{ $p ->status }}</b></a>
+              @elseif ($p ->status == "Proses")
+              <a  class=" d-grid gap-4 col-10 mx-auto text-warning" style="text-decoration:none"><b>{{ $p ->status }}</b></a>
+              @endif
+            </td>
 
             <td>
               @if ($p ->status_main == "Selesai")
@@ -143,6 +174,12 @@
                 <a  class=" d-grid gap-4 col-10 mx-auto text-warning" style="text-decoration:none"><b>{{ $p ->status_main }}</b></a>
                 @endif
             </td>
+            <td class="tableitem"><p class="itemtext"><b><?php 
+              $sisa = ($p->total_biaya)/2;
+              $hasil = number_format($sisa, 2, ',', '.');
+              echo $hasil; 
+              ?></td>
+              <td></td>
             <td>{{ $p->keterangan }}</td>
             <td><center>
               <a class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#hapus<?php echo $no ?>" href=""><i class="fa fa-trash"></i> hapus</a>
@@ -213,14 +250,20 @@
         <div class="mb-3 row">
           <label for="staticEmail" class="col-sm-2 col-form-label">Total biaya</label>
           <div class="col-sm-10">
-            <input type="text" readonly class="form-control-plaintext" id="staticEmail" value="{{ $p-> total_biaya }}">
+              <?php
+                  // Format angka ke dalam format rupiah
+                  $totalBiayaFormatted = number_format($p->total_biaya, 0, ',', '.');
+              ?>
+              <input type="text" readonly class="form-control-plaintext" id="staticEmail" value="Rp {{ $totalBiayaFormatted }}">
           </div>
-        </div>
+      </div>
         <div class="mb-3 row">
           <label for="staticEmail" class="col-sm-2 col-form-label">Bukti transfer</label>
           <div class="col-sm-10">
-            <img src="/img/{{ $p->bukti_transfer }}" height="100%" width="100%" alt="" type="text" readonly class="form-control-plaintext" id="staticEmail">
-          </div>
+            @if (optional($p->pembayaran)->bukti_transfer !="")
+            <img src="/img/{{ optional($p->pembayaran)->bukti_transfer }}" height="70%" width="50%" alt="" type="text" readonly class="form-control-plaintext" id="staticEmail">
+          @endif
+        </div>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
@@ -248,26 +291,31 @@
           <input type="hidden" class="form-control" value="{{ $p-> id_pesanan }}" name="id_pesanan">
           <div class="mb-3">
             <label class="form-label">Nama Pemesan</label>
-            <input type="text" class="form-control"  value="{{ $p-> nama_pemesanan }}" name="nama_pemesanan" required >
+            <input disabled type="text" class="form-control"  value="{{ $p->nama_pemesanan }}" name="nama_pemesanan" required >
           </div>
-          <div class="mb-3">
+            <div class="mb-3">
             <label for="disabledSelect" class="form-label">Pilih Meja</label>
             <select id="disabledSelect" class="form-select" name="id_meja">
               @foreach ($meja as $m)
-              <option value="{{ $m-> id_meja }}">Meja {{ $m-> no_meja }}</option>
+              @if( $m->id_meja === $p->id_meja)
+              <option disabled type="text" value="{{ $m-> id_meja }}" {{ $m->id_meja === $p->id_meja ? 'selected' : '' }}>Meja {{ $m->no_meja }}</option>
+              @endif
               @endforeach
             </select>
           </div>
-            <div class="mb-3">
-              <label class="form-label">Total Biaya</label>
-              <input disabled type="text" class="form-control" value="{{ $p-> total_biaya }}" name="total_biaya" required >
-            </div>
+          <div class="mb-3">
+            <label class="form-label">Total Biaya</label>
+            <?php
+                // Format angka ke dalam format rupiah
+                $totalBiayaFormatted = "Rp " . number_format($p->total_biaya, 0, ',', '.');
+            ?>
+            <input disabled type="text" class="form-control" value="{{ $totalBiayaFormatted }}" name="total_biaya" required>
+        </div>
             <div class="mb-3">
               <label for="disabledSelect" class="form-label">Status</label>
                 <select id="disabledSelect" class="form-select" name="status">
-                <option value="Proses">Proses</option>
-                <option value="Invalid">Invalid</option>
                 <option value="Valid">Valid</option>
+                <option value="Invalid">Invalid</option>
               </select>
             </div>
             <div class="mb-3">
@@ -297,20 +345,19 @@
 
 </body>
 <script>
-  function calculateTotal() {
-      var waktuAwal = document.autoSumForm.waktu_mulai.value;
-      var waktuAkhir = document.autoSumForm.waktu_selesai.value;
-
-      if (waktuAwal && waktuAkhir) {
-          var selisihWaktu = calculateTimeDifference(waktuAwal, waktuAkhir);
-          // Misalnya, kita asumsikan biaya per menit adalah 10.
-          var biayaPerMenit = 500;
-          var totalBayar = selisihWaktu * biayaPerMenit;
-          document.autoSumForm.total_biaya.value = totalBayar;
-      } else {
-          document.autoSumForm.total_biaya.value = "0";
-      }
-  }
+  function startCalc(){
+  
+  interval = setInterval("calc()",1);}
+  
+  function calc(){
+  
+  one = document.autoSumForm.durasi.value;
+  
+  document.autoSumForm.total_biaya.value = (one * 35000 );}
+  
+  function stopCalc(){
+  
+  clearInterval(interval);}
 
   function calculateTimeDifference(time1, time2) {
       var parts1 = time1.split(":");

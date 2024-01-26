@@ -39,4 +39,6 @@ class mejaController extends Controller
         return redirect('/admin/editmeja');
     }
 
+   
 }
+

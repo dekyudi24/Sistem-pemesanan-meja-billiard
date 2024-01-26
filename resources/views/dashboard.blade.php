@@ -5,6 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+    <style>
+      .container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      }
+
+      .card {
+      margin: 10px;
+      }
+    </style>
 </head>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 <body>
@@ -36,18 +47,18 @@
       </nav>
 
 <!-- CODE UNTUK LANTAI -->
-<div class="nav-item dropdown">
-  <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-    Lantai 1
-  </button>
-  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-    <li><a class="dropdown-item" href="/dashboard">Lantai 1</a></li>
-    <li><a class="dropdown-item" href="/dashlantai2">Lantai 2</a></li>
-    <li><a class="dropdown-item" href="/dashlantai3">Lantai 3</a></li>
-  </ul>
-</div>
-<br>
-@if ($errors->any())
+    <div class="nav-item dropdown">
+      <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+        Lantai 1
+      </button>
+      <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+        <li><a class="dropdown-item" href="/dashboard">Lantai 1</a></li>
+        <li><a class="dropdown-item" href="/dashlantai2">Lantai 2</a></li>
+        <li><a class="dropdown-item" href="/dashlantai3">Lantai 3</a></li>
+      </ul>
+    </div>
+    <br>
+        @if ($errors->any())
         <div class="alert alert-danger">
           <ul>
             @foreach ($errors->all() as $error)
@@ -56,149 +67,237 @@
           </ul>
         </div>
         @endif
- @foreach ($meja as $m )
-  
-@if ($m -> no_meja == 9)
-      <div class="row">
-      <div class="" style="width: 10rem;">
-        <div class="card-body">
-          <button disabled class="d-grid gap-4 col-8 mx-auto btn btn-secondary"><br><br>{{ $m -> no_meja }} <br><br></button><br>
-          @if ($m -> status == "Tersedia")
-          <button class=" d-grid gap-4 col-10 mx-auto btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal{{ $m -> id_meja }}">{{ $m -> status }}</button>
-          @elseif ($m -> status == "Rusak")                
-          <button disabled class=" d-grid gap-4 col-10 mx-auto btn btn-danger" >{{ $m -> status }}</button>
-          @elseif ($m -> status == "Evant")
-          <button disabled class=" d-grid gap-4 col-10 mx-auto btn btn-warning" >{{ $m -> status }}</button>
-          @endif
+        <!--div class="card">
+          <div class="card-body mx-5" style="background-color:white;">
+              @foreach ($meja as $m )
+              @if ($m -> no_meja == 9)
+              <br>
+              <div class="row">
+                <div class="card d-grid gap-4 col-8 mx-3" style="width: 7rem; background-color:darkgray;">
+                  <div class="card-body ">
+                    <button disabled class="d-grid gap-4 col-10 mx-2 btn btn-secondary">{{ $m -> no_meja }}</button><br>
+                  </div>
+                  <div class="card-footer"></div>
+                </div>
+              </div>
+              @endif
+              @if ($m -> no_meja == 8)
+              <br>
+              <div class="row">
+                <div class="card d-grid gap-4 col-8 mx-3" style="width: 7rem; background-color:darkgray">
+                  <div class="card-body ">
+                    <button disabled class="d-grid gap-4 col-10 mx-2 btn btn-secondary"><br><br>{{ $m -> no_meja }} <br><br></button><br>
+                  </div>
+                  <div class="card-footer"></div>
+                </div>
+              @endif
+              @if ($m -> no_meja == 7)
+        
+              <div class="card d-grid gap-4 col-8 mx-3" style="width: 7rem; background-color:darkgray">
+                <div class="card-body ">
+                  <button disabled class="d-grid gap-4 col-10 mx-2 btn btn-secondary"><br><br>{{ $m -> no_meja }} <br><br></button><br>
+                </div>
+                <div class="card-footer"></div>
+              </div>
+              @endif
+              @if ($m -> no_meja == 6)
+             
+              <div class="card d-grid gap-4 col-8 mx-4" style="width: 7rem; background-color:darkgray">
+                <div class="card-body ">
+                  <button disabled class="d-grid gap-4 col-10 mx-2 btn btn-secondary"><br><br>{{ $m -> no_meja }} <br><br></button><br>
+                </div>
+                <div class="card-footer"></div>
+              </div>
+              @endif
+              @if ($m -> no_meja == 5)
+             
+              <div class="card d-grid gap-4 col-8 mx-3" style="width: 7rem; background-color:darkgray">
+                <div class="card-body ">
+                  <button disabled class="d-grid gap-4 col-10 mx-2 btn btn-secondary"><br><br>{{ $m -> no_meja }} <br><br></button><br>
+                </div>
+                <div class="card-footer"></div>
+              </div>
+              @endif
+              @if ($m -> no_meja == 4)
+              &nbsp;&nbsp;
+              <div class="card d-grid gap-4 col-8 mx-3" style="width: 7rem; background-color:darkgray">
+                <div class="card-body ">
+                  <button disabled class="d-grid gap-4 col-10 mx-2 btn btn-secondary"><br><br>{{ $m -> no_meja }} <br><br></button><br>
+                </div>
+                <div class="card-footer"></div>
+              </div>
+              @endif
+              @if ($m -> no_meja == 3)
+              &nbsp;&nbsp;
+              <div class="card d-grid gap-4 col-8 mx-3" style="width: 7rem; background-color:darkgray">
+                <div class="card-body ">
+                  <button disabled class="d-grid gap-4 col-10 mx-2 btn btn-secondary"><br><br>{{ $m -> no_meja }} <br><br></button><br>
+                </div>
+                <div class="card-footer"></div>
+              </div>
+              @endif
+              @if ($m -> no_meja == 2)
+              &nbsp;&nbsp;
+              <div class="card d-grid gap-4 col-8 mx-3" style="width: 7rem; background-color:darkgray">
+                <div class="card-body ">
+                  <button disabled class="d-grid gap-4 col-10 mx-2 btn btn-secondary"><br><br>{{ $m -> no_meja }} <br><br></button><br>
+                </div>
+                <div class="card-footer"></div>
+              </div>
+              @endif
+              @if ($m -> no_meja == 1)
+              &nbsp;&nbsp;
+              <div class="card d-grid gap-4 col-8 mx-3" style="width: 7rem; background-color:darkgray">
+                <div class="card-body ">
+                  <button disabled class="d-grid gap-4 col-10 mx-2 btn btn-secondary"><br><br>{{ $m -> no_meja }} <br><br></button><br>
+                </div>
+                <div class="card-footer"></div>
+              </div>
+            @endif
+            @endforeach
+          </div>
         </div>
-      </div>
-      </div>
-      @endif
-      @if ($m -> no_meja == 8)
-      <br>
-      <div class="row">
-      <div class="" style="width: 10rem;">
-        <div class="card-body">
-          <button disabled class="d-grid gap-4 col-8 mx-auto btn btn-secondary"><br><br>{{ $m -> no_meja }} <br><br></button><br>
-          @if ($m -> status == "Tersedia")
-          <button class=" d-grid gap-4 col-10 mx-auto btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">{{ $m -> status }}</button>
-          @elseif ($m -> status == "Rusak")                 
-          <button disabled class=" d-grid gap-4 col-10 mx-auto btn btn-danger" >{{ $m -> status }}</button>
-          @elseif ($m -> status == "Evant")
-          <button disabled class=" d-grid gap-4 col-10 mx-auto btn btn-warning" >{{ $m -> status }}</button>
-          @endif
-        </div>
-      </div>
-      @endif
-      @if ($m -> no_meja == 7)
-&nbsp;&nbsp;
-      <div class="" style="width: 10rem;">
-        <div class="card-body">
-          <button disabled class="d-grid gap-4 col-8 mx-auto btn btn-secondary"><br><br>{{ $m -> no_meja }} <br><br></button><br>
-          @if ($m -> status == "Tersedia")
-          <button disabled class=" d-grid gap-4 col-10 mx-auto btn btn-success" >{{ $m -> status }}</button>
-          @elseif ($m -> status == "Rusak")                
-          <button disabled class=" d-grid gap-4 col-10 mx-auto btn btn-danger" >{{ $m -> status }}</button>
-          @elseif ($m -> status == "Evant")
-          <button disabled class=" d-grid gap-4 col-10 mx-auto btn btn-warning" >{{ $m -> status }}</button>
-          @endif
-        </div>
-      </div>
-      @endif
-      @if ($m -> no_meja == 6)
-      &nbsp;&nbsp;
-      <div class="" style="width: 10rem;">
-        <div class="card-body">
-          <button disabled class="d-grid gap-4 col-8 mx-auto btn btn-secondary"><br><br>{{ $m -> no_meja }} <br><br></button><br>
-          @if ($m -> status == "Tersedia")
-          <button disabled class=" d-grid gap-4 col-10 mx-auto btn btn-success" >{{ $m -> status }}</button>
-          @elseif ($m -> status == "Rusak")                
-          <button disabled class=" d-grid gap-4 col-10 mx-auto btn btn-danger" >{{ $m -> status }}</button>
-          @elseif ($m -> status == "Evant")
-          <button disabled class=" d-grid gap-4 col-10 mx-auto btn btn-warning" >{{ $m -> status }}</button>
-          @endif
-        </div>
-      </div>
-      @endif
-      @if ($m -> no_meja == 5)
-      &nbsp;&nbsp;
-      <div class="" style="width: 10rem;">
-        <div class="card-body">
-          <button disabled class="d-grid gap-4 col-8 mx-auto btn btn-secondary"><br><br>{{ $m -> no_meja }} <br><br></button><br>
-          @if ($m -> status == "Tersedia")
-          <button disabled class=" d-grid gap-4 col-10 mx-auto btn btn-success" >{{ $m -> status }}</button>
-          @elseif ($m -> status == "Rusak")                
-          <button disabled class=" d-grid gap-4 col-10 mx-auto btn btn-danger" >{{ $m -> status }}</button>
-          @elseif ($m -> status == "Evant")
-          <button disabled class=" d-grid gap-4 col-10 mx-auto btn btn-warning" >{{ $m -> status }}</button>
-          @endif
-        </div>
-      </div>
-      @endif
-      @if ($m -> no_meja == 4)
-      &nbsp;&nbsp;
-      <div class="" style="width: 10rem;">
-        <div class="card-body">
-          <button disabled class="d-grid gap-4 col-8 mx-auto btn btn-secondary"><br><br>{{ $m -> no_meja }} <br><br></button><br>
-          @if ($m -> status == "Tersedia")
-          <button disabled class=" d-grid gap-4 col-10 mx-auto btn btn-success" >{{ $m -> status }}</button>
-          @elseif ($m -> status == "Rusak")                
-          <button disabled class=" d-grid gap-4 col-10 mx-auto btn btn-danger" >{{ $m -> status }}</button>
-          @elseif ($m -> status == "Evant")
-          <button disabled class=" d-grid gap-4 col-10 mx-auto btn btn-warning" >{{ $m -> status }}</button>
-          @endif
-        </div>
-      </div>
-      @endif
-      @if ($m -> no_meja == 3)
-      &nbsp;&nbsp;
-      <div class="" style="width: 10rem;">
-        <div class="card-body">
-          <button disabled class="d-grid gap-4 col-8 mx-auto btn btn-secondary"><br><br>{{ $m -> no_meja }} <br><br></button><br>
-          @if ($m -> status == "Tersedia")
-          <button disabled class=" d-grid gap-4 col-10 mx-auto btn btn-success" >{{ $m -> status }}</button>
-          @elseif ($m -> status == "Rusak")                
-          <button disabled class=" d-grid gap-4 col-10 mx-auto btn btn-danger" >{{ $m -> status }}</button>
-          @elseif ($m -> status == "Evant")
-          <button disabled class=" d-grid gap-4 col-10 mx-auto btn btn-warning" >{{ $m -> status }}</button>
-          @endif
-        </div>
-      </div>
-      @endif
-      @if ($m -> no_meja == 2)
-      &nbsp;&nbsp;
-      <div class="" style="width: 10rem;">
-        <div class="card-body">
-          <button disabled class="d-grid gap-4 col-8 mx-auto btn btn-secondary"><br><br>{{ $m -> no_meja }} <br><br></button><br>
-          @if ($m -> status == "Tersedia")
-          <button disabled class=" d-grid gap-4 col-10 mx-auto btn btn-success" >{{ $m -> status }}</button>
-          @elseif ($m -> status == "Rusak")                
-          <button disabled class=" d-grid gap-4 col-10 mx-auto btn btn-danger" >{{ $m -> status }}</button>
-          @elseif ($m -> status == "Evant")
-          <button disabled class=" d-grid gap-4 col-10 mx-auto btn btn-warning" >{{ $m -> status }}</button>
-          @endif
-        </div>
-      </div>
-      @endif
-      @if ($m -> no_meja == 1)
-      &nbsp;&nbsp;
-      <div class="" style="width: 10rem;">
-        <div class="card-body">
-          <button disabled class="d-grid gap-4 col-8 mx-auto btn btn-secondary"><br><br>{{ $m -> no_meja }} <br><br></button><br>
-          @if ($m -> status == "Tersedia")
-          <button disabled class=" d-grid gap-4 col-10 mx-auto btn btn-success" >{{ $m -> status }}</button>
-          @elseif ($m -> status == "Rusak")                
-          <button disabled class=" d-grid gap-4 col-10 mx-auto btn btn-danger" >{{ $m -> status }}</button>
-          @elseif ($m -> status == "Evant")
-          <button disabled class=" d-grid gap-4 col-10 mx-auto btn btn-warning" >{{ $m -> status }}</button>
-          @endif
-        </div>
-      </div>
-    </div>
-    @endif
-    
-@endforeach
-    
+      </div-->
+            <head>
+              <div class="container">
+                  
+                    <table class="table table-bordered">
+                      <thead>
+                        <tr style="column-span: 8"><b>Lihat Jadwal Meja</b></tr>
+                      </thead>
+                      <tbody>
+                          <tr align="center">
+                            @foreach ($meja as $m )
+                            @if ($m -> no_meja == 9)
+                            @if ($m -> status == "Tersedia")
+                              <td ><a class="btn btn-success" href="{{ route('jadwal_plg', ['id_meja' => $m->id_meja]) }}" role="button"> Meja {{ $m -> no_meja }}</a></td>
+                            @elseif($m -> status == "Rusak")
+                            <td ><button class="btn btn-danger" role="button"> Meja {{ $m -> no_meja }}</button></td>
+                            @else
+                            <td ><button class="btn btn-warning" role="button"> Meja {{ $m -> no_meja }}</button></td>
+                            @endif
+                            @endif
+                            @endforeach
+                            
+                          </tr>
+                          <tr align="center"> 
+                            @foreach ($meja as $m )
+                            @if ($m -> no_meja == 8)
+                            @if ($m -> status == "Tersedia")
+                              <td ><a class="btn btn-success" href="{{ route('jadwal_plg', ['id_meja' => $m->id_meja]) }}" role="button"> Meja {{ $m -> no_meja }}</a></td>
+                            @elseif($m -> status == "Rusak")
+                            <td ><button class="btn btn-danger" role="button"> Meja {{ $m -> no_meja }}</button></td>
+                            @else
+                            <td ><button class="btn btn-warning" role="button"> Meja {{ $m -> no_meja }}</button></td>
+                            @endif
+                            @endif
+                            @endforeach
+                            @foreach ($meja as $m )
+                            @if ($m -> no_meja == 7)
+                            @if ($m -> status == "Tersedia")
+                              <td ><a class="btn btn-success" href="{{ route('jadwal_plg', ['id_meja' => $m->id_meja]) }}" role="button"> Meja {{ $m -> no_meja }}</a></td>
+                            @elseif($m -> status == "Rusak")
+                            <td ><button class="btn btn-danger" role="button"> Meja {{ $m -> no_meja }}</button></td>
+                            @else
+                            <td ><button class="btn btn-warning" role="button"> Meja {{ $m -> no_meja }}</button></td>
+                            @endif
+                            @endif
+                            @endforeach
+                            @foreach ($meja as $m )
+                            @if ($m -> no_meja == 6)
+                            @if ($m -> status == "Tersedia")
+                              <td ><a class="btn btn-success" href="{{ route('jadwal_plg', ['id_meja' => $m->id_meja]) }}" role="button"> Meja {{ $m -> no_meja }}</a></td>
+                            @elseif($m -> status == "Rusak")
+                            <td ><button class="btn btn-danger" role="button"> Meja {{ $m -> no_meja }}</button></td>
+                            @else
+                            <td ><button class="btn btn-warning" role="button"> Meja {{ $m -> no_meja }}</button></td>
+                            @endif
+                            @endif
+                            @endforeach
+                            @foreach ($meja as $m )
+                            @if ($m -> no_meja == 5)
+                            @if ($m -> status == "Tersedia")
+                              <td ><a class="btn btn-success" href="{{ route('jadwal_plg', ['id_meja' => $m->id_meja]) }}" role="button"> Meja {{ $m -> no_meja }}</a></td>
+                            @elseif($m -> status == "Rusak")
+                            <td ><button class="btn btn-danger" role="button"> Meja {{ $m -> no_meja }}</button></td>
+                            @else
+                            <td ><button class="btn btn-warning" role="button"> Meja {{ $m -> no_meja }}</button></td>
+                            @endif
+                            @endif
+                            @endforeach
+                            @foreach ($meja as $m )
+                            @if ($m -> no_meja == 4)
+                            @if ($m -> status == "Tersedia")
+                              <td ><a class="btn btn-success" href="{{ route('jadwal_plg', ['id_meja' => $m->id_meja]) }}" role="button"> Meja {{ $m -> no_meja }}</a></td>
+                            @elseif($m -> status == "Rusak")
+                            <td ><button class="btn btn-danger" role="button"> Meja {{ $m -> no_meja }}</button></td>
+                            @else
+                            <td ><button class="btn btn-warning" role="button"> Meja {{ $m -> no_meja }}</button></td>
+                            @endif
+                            @endif
+                            @endforeach
+                            @foreach ($meja as $m )
+                            @if ($m -> no_meja == 3)
+                            @if ($m -> status == "Tersedia")
+                              <td ><a class="btn btn-success" href="{{ route('jadwal_plg', ['id_meja' => $m->id_meja]) }}" role="button"> Meja {{ $m -> no_meja }}</a></td>
+                            @elseif($m -> status == "Rusak")
+                            <td ><button class="btn btn-danger" role="button"> Meja {{ $m -> no_meja }}</button></td>
+                            @else
+                            <td ><button class="btn btn-warning" role="button"> Meja {{ $m -> no_meja }}</button></td>
+                            @endif
+                            @endif
+                            @endforeach
+                            @foreach ($meja as $m )
+                            @if ($m -> no_meja == 2)
+                            @if ($m -> status == "Tersedia")
+                              <td ><a class="btn btn-success" href="{{ route('jadwal_plg', ['id_meja' => $m->id_meja]) }}" role="button"> Meja {{ $m -> no_meja }}</a></td>
+                            @elseif($m -> status == "Rusak")
+                            <td ><button class="btn btn-danger" role="button"> Meja {{ $m -> no_meja }}</button></td>
+                            @else
+                            <td ><button class="btn btn-warning" role="button"> Meja {{ $m -> no_meja }}</button></td>
+                            @endif
+                            @endif
+                            @endforeach
+                            @foreach ($meja as $m )
+                            @if ($m -> no_meja == 1)
+                            @if ($m -> status == "Tersedia")
+                              <td ><a class="btn btn-success" href="{{ route('jadwal_plg', ['id_meja' => $m->id_meja]) }}" role="button"> Meja {{ $m -> no_meja }}</a></td>
+                            @elseif($m -> status == "Rusak")
+                            <td ><button class="btn btn-danger" role="button"> Meja {{ $m -> no_meja }}</button></td>
+                            @else
+                            <td ><button class="btn btn-warning" role="button"> Meja {{ $m -> no_meja }}</button></td>
+                            @endif
+                            @endif
+                            @endforeach
+                          </tr>
+      
+                          <tr align="center">
+                          </tr>
+                        </table>
+                        <table class="table table-bordered">
+                          <thead>
+                            <tr style="column-span: 2;"> <b>Keterangan</b></tr>
+                          </thead>
+                          <tbody>
+                            <tr align="center">
+                              <td><button class="btn btn-warning"></td>
+                              <td>Event</td>
+                            </tr>
+                            <tr align="center">
+                              <td><button class="btn btn-danger"></td>
+                              <td>Rusak</td>
+                            </tr>
+                            <tr align="center">
+                              <td><button class="btn btn-success"></td>
+                              <td>Tersedia</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                </head>
+
+                  <!--td><button class="btn btn-danger,warning, success" role="button"></td>
+                  <td>Rusak</td>
+                </tr-->
     <!-- Modal Tambah-->
 <div class="modal fade" id="exampleModal{{ $m -> id_meja }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
@@ -226,8 +325,6 @@
           <div class="mb-3">
             <label for="disabledSelect" class="form-label">Pilih jam mulai</label>
             <select id="disabledSelect" class="form-select" name="waktu_mulai" required>
-              <option>09:00</option>
-              <option>10:00</option>
               <option>11:00</option>
               <option>12:00</option>
               <option>13:00</option>

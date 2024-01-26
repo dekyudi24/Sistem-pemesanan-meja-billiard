@@ -18,9 +18,9 @@
           <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <ul></ul> <ul></ul> <ul></ul> <ul></ul> <ul></ul> <ul></ul> <ul></ul> <ul></ul> <ul></ul> <ul></ul> <ul></ul> <ul></ul>
             <div class="navbar-nav">
-              <a class="nav-link " aria-current="page" href="/dashboard">Home</a>
-              <a class="nav-link " href="/pemesanan">Pemesanan</a>
-              <a class="nav-link active" href="/informasi">Informasi</a>
+              <a class="nav-link " aria-current="page" href="/karyawan/dashlantai1">Home</a>
+              <a class="nav-link " href="/karyawan/pemesanan">Pemesanan</a>
+              <a class="nav-link active" href="/karyawan/informasi">Informasi</a>
             </div>
           </div>
           <div class="dropdown">
@@ -62,7 +62,6 @@
             </div>
           </div>
         </div>
-        <!--p class="fs-1">.fs-1 text</p <p class="fw-bold">Bold text.</p> <h2>h2. Bootstrap heading</h2> <p class="h1">h1. Bootstrap heading</p>-->
 
 
 </body>

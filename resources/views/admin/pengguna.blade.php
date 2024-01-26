@@ -16,13 +16,14 @@
             <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-            <ul></ul> <ul></ul> <ul></ul> <ul></ul> <ul></ul> <ul></ul> <ul></ul> <ul></ul> <ul></ul> <ul></ul> <ul></ul> <ul></ul>
+             <ul></ul> <ul></ul> <ul></ul> <ul></ul> <ul></ul> <ul></ul> <ul></ul> <ul></ul> <ul></ul> <ul></ul>
             <div class="navbar-nav">
-              <a class="nav-link " aria-current="page" href="/admin/dashlantai1">Home</a>
+              <a class="nav-link  " aria-current="page" href="/admin/dashlantai1">Home</a>
               <a class="nav-link " href="/admin/pemesanan1">Pemesanan</a>
               <a class="nav-link " href="/admin/arsip">Arsip</a>
-              <a class="nav-link" href="/admin/">Informasi</a>
-              <a class="nav-link active" href="/admin/pengguna">Pengguna</a>
+              <a class="nav-link" href="/admin/informasi">Informasi</a>
+              <a class="nav-link" href="/admin/laporan">Laporan</a>
+              <a class="nav-link active " href="/admin/pengguna">Pengguna</a>
             </div>
           </div>
           <div class="dropdown">
@@ -104,7 +105,6 @@
           <tr>
             <th scope="col">No</th>
             <th scope="col">Nama</th>
-            <th scope="col">Username</th>
             <th scope="col">Role</th>
             <th scope="col"><center>Aksi</center></th>
           </tr>
@@ -119,7 +119,6 @@
             <tr>
               <th scope="row">{{ ++ $no}}</th>
               <td>{{ $u->nama }}</td>
-              <td>{{ $u->username }}</td>
               <td>{{ $u->role }}</td>
               <td><center>
                 <a class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#hapus<?php echo $no ?>" href=""><i class="fa fa-trash"></i> hapus</a>
